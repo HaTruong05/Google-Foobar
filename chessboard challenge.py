@@ -56,7 +56,6 @@ def solution(src, dest):
             for move in poss_moves:
                 new_dest = source + move
                 if new_dest == dest:
-                    print(source)
                     return i + 1
                 else:
                     source_dict[i+1] = source_dict.get(i + 1, []) + [new_dest]
@@ -174,4 +173,4 @@ def __find_col(src):
 
 
 if __name__ == "__main__":
-    print(solution(0, 63))
+    print(solution(0, 23))
