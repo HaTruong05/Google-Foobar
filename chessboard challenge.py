@@ -14,6 +14,15 @@ LEFT_DOWN = 6
 POSS_ROWS = [1, 2, 3, 4, 5, 6, 7, 8]
 POSS_COLS = [1, 2, 3, 4, 5, 6, 7, 8]
 
+FIRST_ROW = 1
+FIRST_COL = 1
+SEC_ROW = 2
+SEC_COL = 2
+LAST_ROW = 8
+LAST_COL = 8
+SEC_LAST_ROW = 7
+SEC_LAST_COL = 7
+
 
 def solution(src, dest):
     """Given a starting square and a destination on an 8x8 board, 
@@ -93,35 +102,35 @@ def __find_poss_moves(moves, start_row, start_col):
         start_col (int): the starting column
     """
     if UP_LEFT in moves:
-        if start_row == 1 or start_row == 2 or start_col == 1:
+        if start_row == FIRST_ROW or start_row == SEC_ROW or start_col == FIRST_COL:
             moves.remove(UP_LEFT)
     
     if UP_RIGHT in moves:
-        if start_row == 1 or start_row == 2 or start_col == 8:
+        if start_row == FIRST_ROW or start_row == SEC_ROW or start_col == LAST_COL:
             moves.remove(UP_RIGHT)
 
     if DOWN_LEFT in moves:
-        if start_row == 7 or start_row == 8 or start_col == 1:
+        if start_row == SEC_LAST_ROW or start_row == LAST_ROW or start_col == FIRST_COL:
             moves.remove(DOWN_LEFT)
 
     if DOWN_RIGHT in moves:
-        if start_row == 7 or start_row == 8 or start_col == 8:
+        if start_row == SEC_LAST_ROW or start_row == LAST_ROW or start_col == LAST_COL:
             moves.remove(DOWN_RIGHT)
     
     if LEFT_DOWN in moves:
-        if start_col == 1 or start_col == 2 or start_row == 8:
+        if start_col == FIRST_COL or start_col == SEC_COL or start_row == LAST_ROW:
             moves.remove(LEFT_DOWN)
     
     if LEFT_UP in moves:
-        if start_col == 1 or start_col == 2 or start_row == 1:
+        if start_col == FIRST_COL or start_col == SEC_COL or start_row == FIRST_ROW:
             moves.remove(LEFT_UP)
     
     if RIGHT_DOWN in moves:
-        if start_col == 7 or start_col == 8 or start_row == 8:
+        if start_col == SEC_LAST_COL or start_col == LAST_COL or start_row == LAST_ROW:
             moves.remove(RIGHT_DOWN)
 
     if RIGHT_UP in moves:
-        if start_col == 8 or start_col == 8 or start_row == 1:
+        if start_col == SEC_LAST_COL or start_col == LAST_COL or start_row == FIRST_ROW:
             moves.remove(RIGHT_UP)
             
 
