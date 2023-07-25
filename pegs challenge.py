@@ -1,4 +1,22 @@
 def solution(pegs):
+    """Given a list of integers with each integer representing 
+    the position of a peg, find the radius of the first peg given
+    the following restrictions:
+        - each peg must have a radius greater than 1
+        - pegs must connect to one another, meaning the combined
+        radii of two pegs must match the distance between them
+        - the radius of the first peg must be twice the the radius
+        of the final peg
+    If a solution is not possible, return [-1, -1]
+
+    Args:
+        pegs (list): contains the position of the pegs
+
+    Returns:
+        list: represents the radius of the first peg as a fraction,
+            with the first element representing the numerator, and 
+            the second representing the denominator
+    """
     peg_count = len(pegs)
     first_peg = pegs[0]
     second_peg = pegs[1]
@@ -15,9 +33,15 @@ def solution(pegs):
         sec_last_peg = pegs[-2]
         last_distance = last_peg - sec_last_peg
 
-        largest_poss_last_radius = min(first_distance // 2 * 3, last_distance * 3)
+        # The radius of the last peg can't be greater than 2/3 of the distance between 
+        # the first peg and the second peg nor can it be greater than the distance between 
+        # itself and the second last peg
+        # Multiply the bounds by 3 to find the upper bound for the numerator since 4/3 is 
+        # represented as [4, 3] and so on
+        largest_poss_last_radius_num = min(first_distance // 2 * 3, last_distance * 3)
 
-        for last_radius in range(3, largest_poss_last_radius + 1):
+        # Check every possible radius to see if any of them works
+        for last_radius in range(3, largest_poss_last_radius_num + 1):
             if last_radius % 3 == 0:
                 denominator = 1
                 next_peg_radius = last_distance - last_radius
@@ -26,6 +50,8 @@ def solution(pegs):
                 next_peg_radius = last_distance * 3 - last_radius
 
             for idx in range(-2, -peg_count, -1):
+                # If any of the radius we are trying out leads to a peg with
+                # a radius of less than 1, stop exploring that branch
                 if next_peg_radius / denominator >= 1:
                     current_peg = pegs[idx]
                     next_peg = pegs[idx - 1]
