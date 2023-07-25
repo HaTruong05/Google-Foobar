@@ -35,7 +35,8 @@ def solution(src, dest):
 
     Returns:
         int: the smallest number of moves needed
-    """        
+    """
+    # key is the number of moves needed to reach any of the squares in the associated list        
     source_dict = {0: [src]}
 
     end_row, end_col = __find_position(dest)
@@ -50,6 +51,8 @@ def solution(src, dest):
             start_row, start_col = __find_position(source)
             poss_moves = __remove_unnecessary_moves(start_row, end_row, start_col, end_col)
             __find_poss_moves(poss_moves, start_row, start_col)
+
+            # Check if the destination of any of the possible moves is the desired destination
             for move in poss_moves:
                 new_dest = source + move
                 if new_dest == dest:
